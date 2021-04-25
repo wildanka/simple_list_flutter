@@ -27,24 +27,30 @@ class RandomWords extends StatefulWidget{
 }
 
 class RandomWordsState extends State<RandomWords>{
+  final _randomWordPairs = <WordPair>[];
+
   Widget _buildList(){
-    return ListView(
-      children: <Widget>[
-        ListTile(
-          leading: Icon(Icons.map),
-          title: Text('Maps'),
-        ),
-        ListTile(
-          leading: Icon(Icons.photo_album),
-          title: Text('Album'),
-        ),
-        ListTile(
-          leading: Icon(Icons.phone),
-          title: Text('Phone'),
-        ),
-      ],
+    return ListView.builder(
+      padding: EdgeInsets.all(16.0),
+      itemBuilder: (context, item){
+        if(item.isOdd) return Divider();
+
+        final index = item ~/ 2;
+
+        if(index >= _randomWordPairs.length){
+          _randomWordPairs.addAll(generateWordPairs().take(10));
+        }
+
+        return _buildRow(_randomWordPairs[index]);
+      }
     );
 
+  }
+
+  Widget _buildRow(WordPair wordPair){
+    return ListTile(
+      title: Text(wordPair.asPascalCase, style: TextStyle(fontSize: 18),),
+    );
   }
 
   @override
