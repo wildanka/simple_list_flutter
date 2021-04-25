@@ -13,13 +13,45 @@ class MyApp extends StatelessWidget{
     return MaterialApp(
       theme: ThemeData(primaryColor: Colors.purple[900]),
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text("WordPair Generator"),
-        ),
-        body: Center(child: Text(
-          wordPair.asPascalCase
-        ),),
+          body: RandomWords()
       ),
+    );
+  }
+}
+
+class RandomWords extends StatefulWidget{
+  @override
+  State<StatefulWidget> createState() {
+    return RandomWordsState();
+  }
+}
+
+class RandomWordsState extends State<RandomWords>{
+  Widget _buildList(){
+    return ListView(
+      children: <Widget>[
+        ListTile(
+          leading: Icon(Icons.map),
+          title: Text('Maps'),
+        ),
+        ListTile(
+          leading: Icon(Icons.photo_album),
+          title: Text('Album'),
+        ),
+        ListTile(
+          leading: Icon(Icons.phone),
+          title: Text('Phone'),
+        ),
+      ],
+    );
+
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('WordPair Generator')),
+      body: _buildList()
     );
   }
 }
